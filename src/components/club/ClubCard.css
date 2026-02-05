@@ -1,0 +1,315 @@
+.club-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.club-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Imagen */
+.club-card-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.club-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.club-card:hover .club-card-image img {
+    transform: scale(1.1);
+}
+
+/* Badges */
+.availability-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+    animation: fadeIn var(--transition-base);
+}
+
+.availability-badge.available {
+    background: rgba(0, 200, 81, 0.95);
+    color: var(--text-white);
+}
+
+.availability-badge.full {
+    background: rgba(255, 68, 68, 0.95);
+    color: var(--text-white);
+}
+
+.promo-badge {
+    position: absolute;
+    top: 12px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: var(--text-white);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-md);
+    animation: pulse 2s infinite;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+    background: var(--bg-primary);
+}
+
+.favorite-btn.active {
+    color: var(--error);
+    animation: heartBeat 0.3s ease-out;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.3);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Contenido */
+.club-card-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.club-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.club-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    flex: 1;
+    margin: 0;
+}
+
+.club-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.review-count {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+/* Info */
+.club-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.info-item svg {
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.court-types {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.court-type-tag {
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border: 1px solid var(--border-color);
+}
+
+/* Amenities */
+.club-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.amenity-tag {
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background: rgba(0, 168, 107, 0.1);
+    color: var(--primary-color);
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 168, 107, 0.2);
+}
+
+.amenity-tag.more {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+/* Footer */
+.club-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-label {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.price-value small {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.view-details-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--text-white);
+    font-weight: 600;
+    font-size: 13px;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+}
+
+.view-details-btn:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.view-details-btn svg {
+    transition: transform var(--transition-base);
+}
+
+.view-details-btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .club-card-image {
+        height: 180px;
+    }
+
+    .club-name {
+        font-size: 16px;
+    }
+
+    .price-value {
+        font-size: 18px;
+    }
+
+    .view-details-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+}
