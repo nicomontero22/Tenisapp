@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/layout/Header';
 import SearchBar from '../../components/common/SearchBar';
 import ClubCard from '../../components/club/ClubCard';
+import ClubDetailPage from '../club/ClubDetailPage';
+import PlayerProfile from './PlayerProfile';
+import BottomNavBar from '../../components/player/BottomNavBar';
+import { useAuth } from '../../context/AuthContext';
 import './HomePage.css';
 
 const HomePage = () => {
-    const [user] = useState({
-        name: 'Juan Pérez',
-        email: 'juan@example.com',
-        avatar: null
-    });
+    const { user, logout } = useAuth();
+    const [selectedClub, setSelectedClub] = useState(null);
+    const [currentView, setCurrentView] = useState('home');
+    const [activeTab, setActiveTab] = useState('home');
+
+    useEffect(() => {
+        console.log('👤 Usuario actual:', user);
+    }, [user]);
 
     // Mock data de clubes
     const clubs = [
@@ -100,18 +107,92 @@ const HomePage = () => {
     ];
 
     const handleViewDetails = (club) => {
-        console.log('Ver detalles de:', club);
-        // Aquí navegarías a la página de detalles del club
+        setSelectedClub(club);
+        setCurrentView('clubDetail');
+    };
+
+    const handleBackToHome = () => {
+        setSelectedClub(null);
+        setCurrentView('home');
+    };
+
+    const handleNavigateToBooking = (court) => {
+        console.log('Navegar a reserva:', court);
+        alert('Sistema de reservas en desarrollo.');
     };
 
     const handleLogout = () => {
-        console.log('Cerrar sesión');
+        if (window.confirm('¿Seguro que quieres cerrar sesión?')) {
+            logout();
+        }
     };
 
-    return (
-        <div className="home-page">
-            <Header user={user} onLogout={handleLogout} />
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+        if (tab === 'home') {
+            setCurrentView('home');
+            setSelectedClub(null);
+        }
+    };
 
+    // Si estamos viendo detalle de club, mostrar sin bottom nav
+    if (currentView === 'clubDetail' && selectedClub) {
+        return (
+            <ClubDetailPage
+                clubId={selectedClub.id || selectedClub}
+                onBack={handleBackToHome}
+                onNavigateToBooking={handleNavigateToBooking}
+            />
+        );
+    }
+
+    // Renderizar contenido según tab activo
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case 'home':
+                return renderHomeContent();
+            case 'search':
+                return renderSearchPlaceholder();
+            case 'bookings':
+                return renderBookingsPlaceholder();
+            case 'tournaments':
+                return renderTournamentsPlaceholder();
+            case 'profile':
+                return <PlayerProfile />;
+            default:
+                return renderHomeContent();
+        }
+    };
+
+    const renderSearchPlaceholder = () => (
+        <div className="placeholder-tab-content">
+            <div className="placeholder-icon">🔍</div>
+            <h2>Buscar Jugadores</h2>
+            <p>Encontrá jugadores de tu nivel para desafiar</p>
+            <span className="placeholder-badge">Próximamente</span>
+        </div>
+    );
+
+    const renderBookingsPlaceholder = () => (
+        <div className="placeholder-tab-content">
+            <div className="placeholder-icon">📅</div>
+            <h2>Mis Reservas</h2>
+            <p>Acá vas a ver tus reservas activas y pasadas</p>
+            <span className="placeholder-badge">Próximamente</span>
+        </div>
+    );
+
+    const renderTournamentsPlaceholder = () => (
+        <div className="placeholder-tab-content">
+            <div className="placeholder-icon">🏆</div>
+            <h2>Torneos</h2>
+            <p>Inscribite en torneos y competí con otros jugadores</p>
+            <span className="placeholder-badge">Próximamente</span>
+        </div>
+    );
+
+    const renderHomeContent = () => (
+        <>
             {/* Hero Section con SearchBar */}
             <section className="hero-section">
                 <SearchBar />
@@ -241,10 +322,18 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className="footer-bottom">
-                        <p>&copy; 2024 Tennis Booking. Todos los derechos reservados.</p>
+                        <p>&copy; 2025 Tennis Booking. Todos los derechos reservados.</p>
                     </div>
                 </div>
             </footer>
+        </>
+    );
+
+    return (
+        <div className="home-page has-bottom-nav">
+            {activeTab !== 'profile' && <Header user={user} onLogout={handleLogout} />}
+            {renderTabContent()}
+            <BottomNavBar activeTab={activeTab} onTabChange={handleTabChange} />
         </div>
     );
 };

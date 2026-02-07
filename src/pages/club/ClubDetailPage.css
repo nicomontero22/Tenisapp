@@ -1,0 +1,598 @@
+/* ============================================
+   CLUB DETAIL PAGE
+   ============================================ */
+
+.club-detail-page {
+    min-height: 100vh;
+    background: #f5f5f5;
+    padding-bottom: 90px;
+}
+
+/* Hero Section */
+.club-detail-hero {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.0) 40%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+}
+
+.back-button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s;
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Thumbnails */
+.hero-thumbnails {
+    position: absolute;
+    bottom: 70px;
+    right: 16px;
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s;
+    opacity: 0.7;
+}
+
+.thumbnail.active {
+    border-color: #FFD700;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Promo Badge */
+.promo-badge-detail {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #FF6B6B, #FF5252);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(255, 82, 82, 0.4);
+}
+
+/* Hero Info */
+.hero-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 10;
+    color: white;
+}
+
+.hero-info h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.hero-rating strong {
+    margin-left: 4px;
+}
+
+.hero-rating span:last-child {
+    opacity: 0.8;
+    font-size: 12px;
+}
+
+.hero-distance {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Content */
+.club-detail-content {
+    padding: 0 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Quick Stats */
+.quick-stats-row {
+    display: flex;
+    gap: 12px;
+    margin: -30px 0 20px;
+    position: relative;
+    z-index: 20;
+}
+
+.quick-stat {
+    flex: 1;
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.quick-stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #00A86B;
+}
+
+.quick-stat-label {
+    font-size: 12px;
+    color: #888;
+    font-weight: 600;
+}
+
+/* Tabs */
+.detail-tabs {
+    display: flex;
+    gap: 4px;
+    background: #eeeeee;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.detail-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.detail-tab.active {
+    background: white;
+    color: #1a1a1a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Tab Content */
+.tab-content {
+    padding-bottom: 20px;
+}
+
+/* Info Section */
+.info-section {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.info-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 12px;
+}
+
+.club-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+/* Amenities */
+.amenities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.amenity-tag {
+    padding: 6px 12px;
+    background: #E6F9F1;
+    color: #00A86B;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Schedule */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.schedule-row:last-child {
+    border-bottom: none;
+}
+
+.schedule-row span {
+    color: #666;
+}
+
+.schedule-row strong {
+    color: #00A86B;
+}
+
+/* Contact */
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.contact-icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+
+/* Courts List */
+.courts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.court-card-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s;
+}
+
+.court-card-detail:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.court-card-detail.disabled {
+    opacity: 0.6;
+}
+
+.court-card-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.court-surface-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.court-card-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 2px;
+}
+
+.court-card-info p {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+}
+
+.court-features {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.court-feature {
+    font-size: 11px;
+    color: #666;
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.court-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.court-price {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.court-price small {
+    font-size: 11px;
+    color: #999;
+    font-weight: 500;
+}
+
+.court-status-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.btn-reserve-court {
+    padding: 6px 16px;
+    background: #00A86B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-reserve-court:hover {
+    background: #008f5a;
+    transform: translateY(-1px);
+}
+
+/* Reviews */
+.reviews-summary {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.rating-big {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rating-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.rating-count {
+    font-size: 13px;
+    color: #888;
+    display: block;
+    margin-top: 2px;
+}
+
+.review-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.review-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00A86B, #006b47);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.review-meta {
+    flex: 1;
+}
+
+.review-meta strong {
+    display: block;
+    font-size: 14px;
+}
+
+.review-meta span {
+    font-size: 12px;
+    color: #999;
+}
+
+.review-rating {
+    font-size: 14px;
+}
+
+.review-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Bottom CTA */
+.bottom-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #eee;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.bottom-cta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.bottom-cta-price {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.bottom-cta-available {
+    font-size: 12px;
+    color: #00A86B;
+    font-weight: 600;
+}
+
+.btn-reserve-main {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #00A86B, #006b47);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3);
+}
+
+.btn-reserve-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 168, 107, 0.4);
+}
+
+.btn-reserve-main:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .club-detail-hero {
+        height: 240px;
+    }
+
+    .hero-info h1 {
+        font-size: 20px;
+    }
+
+    .quick-stats-row {
+        margin-top: -20px;
+    }
+
+    .quick-stat-value {
+        font-size: 16px;
+    }
+
+    .court-card-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .court-card-right {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+}

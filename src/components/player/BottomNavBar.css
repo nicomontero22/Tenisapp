@@ -1,0 +1,95 @@
+/* ============================================
+   BOTTOM NAVIGATION BAR
+   ============================================ */
+
+.bottom-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1000;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 56px;
+}
+
+.bottom-nav-item:active {
+    transform: scale(0.9);
+}
+
+.bottom-nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    transition: all 0.2s ease;
+}
+
+.bottom-nav-item.active .bottom-nav-icon {
+    color: #00A86B;
+    transform: translateY(-2px);
+}
+
+.bottom-nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #aaa;
+    transition: color 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.bottom-nav-item.active .bottom-nav-label {
+    color: #00A86B;
+    font-weight: 700;
+}
+
+.bottom-nav-indicator {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background: #00A86B;
+    border-radius: 0 0 3px 3px;
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1);
+    }
+}
+
+/* Ensure content doesn't hide behind nav */
+.has-bottom-nav {
+    padding-bottom: 80px;
+}
