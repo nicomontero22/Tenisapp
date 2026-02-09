@@ -6,6 +6,7 @@ import PricingSection from './sections/PricingSection';
 import BlocksSection from './sections/BlocksSection';
 import BookingsSection from './sections/BookingsSection';
 import IdentitySection from './sections/IdentitySection';
+import TournamentsSection from './sections/TournamentsSection';
 import './ClubAdminDashboard.css';
 
 const ClubAdminDashboard = () => {
@@ -91,6 +92,7 @@ const ClubAdminDashboard = () => {
         { id: 'pricing', label: 'Precios', icon: '💰', badge: null },
         { id: 'blocks', label: 'Bloqueos', icon: '🚫', badge: null },
         { id: 'identity', label: 'Mi Club', icon: '🏢', badge: null },
+        { id: 'tournaments', label: 'Torneos', icon: '🏆', badge: null },
     ];
 
     const formatCurrency = (amount) => {
@@ -223,6 +225,8 @@ const ClubAdminDashboard = () => {
                 return <BookingsSection courts={courts} />;
             case 'identity':
                 return <IdentitySection identity={clubIdentity} setIdentity={setClubIdentity} />;
+            case 'tournaments':
+                return <TournamentsSection />;
             default:
                 return renderDashboard();
         }

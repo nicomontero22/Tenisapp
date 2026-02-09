@@ -1,0 +1,147 @@
+/* ============================================
+   TOURNAMENTS SCREEN
+   ============================================ */
+.tournaments-screen { min-height: 100vh; background: #f5f5f5; padding-bottom: 80px; }
+
+.ts-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: white; border-bottom: 1px solid #eee; }
+.ts-header h2 { font-size: 18px; font-weight: 800; margin: 0; }
+.ts-back { width: 40px; height: 40px; border-radius: 50%; border: none; background: #f5f5f5; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.ts-my-btn { padding: 7px 14px; background: #E6F9F1; color: #00A86B; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+/* Filters */
+.ts-filters { background: white; padding: 12px 16px; border-bottom: 1px solid #eee; }
+.ts-filter-row { margin-bottom: 8px; }
+.ts-filter-row:last-child { margin-bottom: 0; }
+.ts-filter-row label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 4px; text-transform: uppercase; }
+.ts-filter-options { display: flex; gap: 4px; flex-wrap: wrap; }
+.ts-chip { padding: 5px 12px; border: 1.5px solid #e0e0e0; border-radius: 16px; background: white; font-size: 12px; font-weight: 600; color: #666; cursor: pointer; transition: all 0.15s; }
+.ts-chip.active { border-color: #00A86B; background: #E6F9F1; color: #00A86B; }
+
+.ts-content { padding: 12px 16px; }
+.ts-count { font-size: 13px; color: #999; font-weight: 600; margin: 0 0 10px; }
+
+/* Tournament Card */
+.tournament-card { display: flex; gap: 12px; padding: 12px; background: white; border-radius: 14px; border: none; width: 100%; cursor: pointer; text-align: left; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: all 0.15s; }
+.tournament-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-1px); }
+.tc-image { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+.tc-info { flex: 1; min-width: 0; }
+.tc-top { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 2px; }
+.tc-top strong { font-size: 14px; color: #1a1a1a; flex: 1; }
+.tc-status { padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.tc-club { font-size: 12px; color: #888; margin: 0 0 4px; }
+.tc-meta { display: flex; gap: 10px; font-size: 11px; color: #aaa; margin-bottom: 4px; }
+.tc-bottom { display: flex; gap: 8px; align-items: center; }
+.tc-price { font-size: 13px; font-weight: 700; color: #00A86B; }
+.tc-spots { font-size: 11px; color: #888; background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
+.tc-inscribed { font-size: 11px; font-weight: 700; color: #00A86B; }
+
+/* ============================================
+   TOURNAMENT DETAIL
+   ============================================ */
+.td-hero { position: relative; height: 180px; border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+.td-hero-img { width: 100%; height: 100%; object-fit: cover; }
+.td-hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(transparent, rgba(0,0,0,0.7)); }
+.td-hero-overlay h1 { font-size: 18px; font-weight: 800; color: white; margin: 4px 0 2px; }
+.td-hero-overlay p { font-size: 13px; color: rgba(255,255,255,0.8); margin: 0; }
+.td-status { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+
+.td-quick-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.td-qi { background: white; border-radius: 12px; padding: 10px 8px; display: flex; gap: 8px; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.td-qi > span { font-size: 18px; }
+.td-qi strong { font-size: 13px; display: block; color: #1a1a1a; }
+.td-qi p { font-size: 10px; color: #aaa; margin: 0; }
+
+.td-tabs { display: flex; gap: 4px; background: #eee; border-radius: 10px; padding: 3px; margin-bottom: 12px; }
+.td-tab { flex: 1; padding: 8px; border: none; border-radius: 8px; background: transparent; font-size: 12px; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s; }
+.td-tab.active { background: white; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+.td-section { margin-bottom: 12px; }
+.td-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.td-card h4 { font-size: 14px; font-weight: 700; margin: 0 0 10px; color: #1a1a1a; }
+.td-card p { font-size: 13px; color: #555; line-height: 1.5; margin: 0; }
+.td-prize { font-size: 14px; margin: 6px 0 !important; font-weight: 600; }
+.td-detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+.td-detail-row span { color: #888; }
+.td-detail-row strong { color: #1a1a1a; text-align: right; max-width: 60%; }
+
+.td-empty { text-align: center; padding: 40px 20px; background: white; border-radius: 14px; }
+.td-empty span { font-size: 40px; display: block; margin-bottom: 8px; }
+.td-empty p { font-size: 14px; color: #888; margin: 0; }
+.td-empty.full h3 { font-size: 16px; margin: 0 0 8px; }
+
+/* Bracket */
+.bracket-container { display: flex; gap: 16px; overflow-x: auto; padding: 8px 0; }
+.bracket-round { min-width: 200px; flex-shrink: 0; }
+.bracket-round-title { font-size: 13px; font-weight: 700; color: #00A86B; text-align: center; margin: 0 0 8px; padding: 4px; background: #E6F9F1; border-radius: 6px; }
+.bracket-match { background: white; border-radius: 10px; margin-bottom: 8px; overflow: hidden; border: 1px solid #eee; }
+.bracket-match.played { border-color: #d0d0d0; }
+.bracket-player { padding: 8px 10px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; }
+.bracket-player.winner { background: #E6F9F1; font-weight: 700; }
+.bracket-win-badge { font-size: 12px; }
+.bracket-vs { text-align: center; font-size: 10px; color: #aaa; padding: 2px; background: #f9f9f9; font-weight: 600; }
+
+/* Results */
+.results-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+.results-row.top { background: none; }
+.results-pos { font-size: 18px; width: 30px; text-align: center; flex-shrink: 0; }
+.results-row strong { flex: 1; font-size: 14px; }
+.results-pts { font-size: 13px; color: #00A86B; font-weight: 700; }
+
+/* CTA */
+.td-cta { position: fixed; bottom: 80px; left: 16px; right: 16px; background: white; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 50; }
+.td-cta-spots { font-size: 12px; color: #00A86B; font-weight: 600; display: block; }
+.td-cta-price { font-size: 16px; font-weight: 800; color: #1a1a1a; }
+.td-cta-btn { padding: 12px 24px; background: linear-gradient(135deg, #00A86B, #006b47); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.td-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,168,107,0.3); }
+
+.td-inscribed-banner { text-align: center; padding: 12px; background: #E6F9F1; color: #00A86B; font-weight: 700; border-radius: 12px; font-size: 14px; margin-top: 12px; }
+
+/* ============================================
+   INSCRIPTION
+   ============================================ */
+.inscription-card { background: white; border-radius: 16px; padding: 24px; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.inscription-card h3 { font-size: 18px; font-weight: 700; margin: 0 0 16px; }
+.inscription-card.confirmation { text-align: center; }
+
+.insc-summary { display: flex; flex-direction: column; gap: 8px; }
+.insc-row { display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; }
+.insc-row span { color: #888; }
+.insc-row.total strong { font-size: 18px; color: #00A86B; }
+.insc-divider { height: 1px; background: #eee; margin: 4px 0; }
+
+.insc-note { display: flex; gap: 8px; padding: 10px; background: #FEF3C7; border-radius: 8px; margin: 14px 0; }
+.insc-note p { font-size: 12px; color: #92400E; margin: 0; }
+
+.btn-insc-continue { width: 100%; padding: 14px; background: linear-gradient(135deg, #00A86B, #006b47); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.btn-insc-continue:hover { transform: translateY(-1px); }
+
+.insc-amount { font-size: 14px; color: #888; margin: 0 0 16px; }
+.insc-amount strong { font-size: 20px; color: #00A86B; }
+
+.payment-methods-insc { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.pm-btn { display: flex; align-items: center; gap: 12px; padding: 14px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; transition: all 0.2s; }
+.pm-btn.active { border-color: #00A86B; background: #f0fdf4; }
+.pm-emoji { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.pm-btn strong { flex: 1; font-size: 15px; }
+.pm-check { width: 24px; height: 24px; border-radius: 50%; background: #00A86B; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+.insc-actions { display: flex; gap: 10px; }
+.btn-insc-back { padding: 14px 18px; background: #f5f5f5; color: #666; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn-insc-pay { flex: 1; padding: 14px; background: linear-gradient(135deg, #00A86B, #006b47); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-insc-pay:disabled { background: #ccc; }
+
+.insc-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.insc-confirm-icon { margin-bottom: 12px; }
+.inscription-card.confirmation h2 { font-size: 22px; font-weight: 800; margin: 0 0 6px; }
+.insc-confirm-date { font-size: 13px; color: #888; margin: 4px 0 16px !important; }
+.insc-confirm-code { display: flex; justify-content: space-between; padding: 12px; background: #E6F9F1; border-radius: 10px; margin-bottom: 16px; }
+.insc-confirm-code span { font-size: 13px; color: #059669; }
+.insc-confirm-code strong { font-size: 18px; color: #00A86B; letter-spacing: 1px; }
+
+@media (max-width: 480px) {
+    .td-quick-info { grid-template-columns: repeat(2, 1fr); }
+    .bracket-container { gap: 10px; }
+    .bracket-round { min-width: 170px; }
+}

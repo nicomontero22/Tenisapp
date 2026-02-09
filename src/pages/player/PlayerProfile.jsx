@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import SocialFeed from './SocialFeed';
+import MyBookings from './MyBookings';
 import './PlayerProfile.css';
 
 const PlayerProfile = ({ isPublicView = false, viewingPlayer = null }) => {
@@ -228,8 +230,9 @@ const PlayerProfile = ({ isPublicView = false, viewingPlayer = null }) => {
             <div className="profile-section-tabs">
                 {[
                     { key: 'stats', label: '📊 Estadísticas' },
-                    { key: 'history', label: '📅 Reservas' },
+                    { key: 'bookings', label: '📅 Reservas' },
                     { key: 'matches', label: '🎾 Partidos' },
+                    { key: 'feed', label: '📣 Actividad' },
                 ].map(tab => (
                     <button
                         key={tab.key}
@@ -290,34 +293,9 @@ const PlayerProfile = ({ isPublicView = false, viewingPlayer = null }) => {
             )}
 
             {/* Booking History */}
-            {activeSection === 'history' && (
+            {activeSection === 'bookings' && (
                 <div className="profile-section-content">
-                    {bookingHistory.map(booking => {
-                        const statusInfo = getStatusBadge(booking.status);
-                        return (
-                            <div key={booking.id} className="booking-history-card">
-                                <div className="booking-history-date">
-                                    <span className="booking-day">
-                                        {new Date(booking.date + 'T12:00').toLocaleDateString('es-AR', { day: '2-digit' })}
-                                    </span>
-                                    <span className="booking-month">
-                                        {new Date(booking.date + 'T12:00').toLocaleDateString('es-AR', { month: 'short' })}
-                                    </span>
-                                </div>
-                                <div className="booking-history-info">
-                                    <h4>{booking.clubName}</h4>
-                                    <p>{booking.courtName} · {booking.surface}</p>
-                                    <p className="booking-time">{booking.time} ({booking.duration})</p>
-                                </div>
-                                <div className="booking-history-right">
-                                    <span className="booking-price">{formatCurrency(booking.price)}</span>
-                                    <span className="booking-status" style={{ background: statusInfo.bg, color: statusInfo.color }}>
-                                        {statusInfo.label}
-                                    </span>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    <MyBookings />
                 </div>
             )}
 
@@ -338,6 +316,13 @@ const PlayerProfile = ({ isPublicView = false, viewingPlayer = null }) => {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Social Feed */}
+            {activeSection === 'feed' && (
+                <div className="profile-section-content">
+                    <SocialFeed currentUser={player} />
                 </div>
             )}
 

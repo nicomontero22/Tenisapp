@@ -3,7 +3,12 @@ import Header from '../../components/layout/Header';
 import SearchBar from '../../components/common/SearchBar';
 import ClubCard from '../../components/club/ClubCard';
 import ClubDetailPage from '../club/ClubDetailPage';
+import BookingScreen from '../booking/BookingScreen';
 import PlayerProfile from './PlayerProfile';
+import PlayerSearch from './PlayerSearch';
+import MessagesScreen from './MessagesScreen';
+import TournamentsScreen from './TournamentsScreen';
+import NotificationsPanel, { NotificationBell } from './NotificationsPanel';
 import BottomNavBar from '../../components/player/BottomNavBar';
 import { useAuth } from '../../context/AuthContext';
 import './HomePage.css';
@@ -13,6 +18,9 @@ const HomePage = () => {
     const [selectedClub, setSelectedClub] = useState(null);
     const [currentView, setCurrentView] = useState('home');
     const [activeTab, setActiveTab] = useState('home');
+    const [quickBookClub, setQuickBookClub] = useState(null);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [notifCount] = useState(4); // mock unread count
 
     useEffect(() => {
         console.log('👤 Usuario actual:', user);
@@ -32,7 +40,12 @@ const HomePage = () => {
             pricePerHour: 3500,
             availability: 3,
             amenities: ['Vestuarios', 'Estacionamiento', 'Bar', 'Iluminación'],
-            promocion: '20% OFF'
+            promocion: '20% OFF',
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Polvo de ladrillo', surfaceColor: '#D2691E', covered: false, hasLights: true, pricePerHour: 3500 },
+                { id: 2, name: 'Cancha 2', surface: 'Cemento', surfaceColor: '#808080', covered: true, hasLights: true, pricePerHour: 4200 },
+            ],
+            depositPercentage: 30,
         },
         {
             id: 2,
@@ -46,7 +59,12 @@ const HomePage = () => {
             pricePerHour: 4200,
             availability: 5,
             amenities: ['Vestuarios', 'Estacionamiento', 'Gimnasio', 'Cafetería', 'WiFi'],
-            promocion: null
+            promocion: null,
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Césped', surfaceColor: '#228B22', covered: false, hasLights: true, pricePerHour: 4200 },
+                { id: 2, name: 'Cancha 2', surface: 'Polvo de ladrillo', surfaceColor: '#D2691E', covered: false, hasLights: true, pricePerHour: 3800 },
+            ],
+            depositPercentage: 25,
         },
         {
             id: 3,
@@ -60,7 +78,11 @@ const HomePage = () => {
             pricePerHour: 4800,
             availability: 0,
             amenities: ['Vestuarios', 'Pro Shop', 'Sauna'],
-            promocion: null
+            promocion: null,
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Cemento', surfaceColor: '#808080', covered: true, hasLights: true, pricePerHour: 4800 },
+            ],
+            depositPercentage: 30,
         },
         {
             id: 4,
@@ -74,7 +96,11 @@ const HomePage = () => {
             pricePerHour: 3200,
             availability: 2,
             amenities: ['Vestuarios', 'Estacionamiento', 'Piscina'],
-            promocion: '2x1 Miércoles'
+            promocion: '2x1 Miércoles',
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Polvo de ladrillo', surfaceColor: '#D2691E', covered: false, hasLights: true, pricePerHour: 3200 },
+            ],
+            depositPercentage: 20,
         },
         {
             id: 5,
@@ -88,7 +114,11 @@ const HomePage = () => {
             pricePerHour: 2800,
             availability: 4,
             amenities: ['Vestuarios', 'Cantina'],
-            promocion: null
+            promocion: null,
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Cemento', surfaceColor: '#808080', covered: false, hasLights: true, pricePerHour: 2800 },
+            ],
+            depositPercentage: 30,
         },
         {
             id: 6,
@@ -102,7 +132,13 @@ const HomePage = () => {
             pricePerHour: 5500,
             availability: 6,
             amenities: ['Vestuarios', 'Estacionamiento', 'Restaurant', 'Gimnasio', 'Spa', 'WiFi'],
-            promocion: 'Happy Hour 14-16hs'
+            promocion: 'Happy Hour 14-16hs',
+            courtsData: [
+                { id: 1, name: 'Cancha 1', surface: 'Polvo de ladrillo', surfaceColor: '#D2691E', covered: false, hasLights: true, pricePerHour: 5500 },
+                { id: 2, name: 'Cancha 2', surface: 'Cemento', surfaceColor: '#808080', covered: true, hasLights: true, pricePerHour: 6000 },
+                { id: 3, name: 'Cancha 3', surface: 'Césped', surfaceColor: '#228B22', covered: false, hasLights: true, pricePerHour: 7000 },
+            ],
+            depositPercentage: 30,
         }
     ];
 
@@ -111,14 +147,15 @@ const HomePage = () => {
         setCurrentView('clubDetail');
     };
 
-    const handleBackToHome = () => {
-        setSelectedClub(null);
-        setCurrentView('home');
+    const handleQuickBook = (club) => {
+        setQuickBookClub(club);
+        setCurrentView('quickBook');
     };
 
-    const handleNavigateToBooking = (court) => {
-        console.log('Navegar a reserva:', court);
-        alert('Sistema de reservas en desarrollo.');
+    const handleBackToHome = () => {
+        setSelectedClub(null);
+        setQuickBookClub(null);
+        setCurrentView('home');
     };
 
     const handleLogout = () => {
@@ -127,21 +164,50 @@ const HomePage = () => {
         }
     };
 
+    const handleNotificationNavigate = (action) => {
+        if (action.tab) {
+            setActiveTab(action.tab);
+            if (action.tab === 'home') {
+                setCurrentView('home');
+                setSelectedClub(null);
+                setQuickBookClub(null);
+            }
+        }
+        setShowNotifications(false);
+    };
+
     const handleTabChange = (tab) => {
         setActiveTab(tab);
         if (tab === 'home') {
             setCurrentView('home');
             setSelectedClub(null);
+            setQuickBookClub(null);
         }
     };
 
-    // Si estamos viendo detalle de club, mostrar sin bottom nav
+    // Vista: Detalle del club (con booking integrado adentro)
     if (currentView === 'clubDetail' && selectedClub) {
         return (
             <ClubDetailPage
                 clubId={selectedClub.id || selectedClub}
                 onBack={handleBackToHome}
-                onNavigateToBooking={handleNavigateToBooking}
+            />
+        );
+    }
+
+    // Vista: Reserva rápida desde Home
+    if (currentView === 'quickBook' && quickBookClub) {
+        return (
+            <BookingScreen
+                club={{
+                    ...quickBookClub,
+                    courts: quickBookClub.courtsData || [],
+                }}
+                court={quickBookClub.courtsData?.[0] || null}
+                onBack={handleBackToHome}
+                onBookingComplete={(booking) => {
+                    console.log('✅ Reserva completada:', booking);
+                }}
             />
         );
     }
@@ -165,30 +231,15 @@ const HomePage = () => {
     };
 
     const renderSearchPlaceholder = () => (
-        <div className="placeholder-tab-content">
-            <div className="placeholder-icon">🔍</div>
-            <h2>Buscar Jugadores</h2>
-            <p>Encontrá jugadores de tu nivel para desafiar</p>
-            <span className="placeholder-badge">Próximamente</span>
-        </div>
+        <PlayerSearch />
     );
 
     const renderBookingsPlaceholder = () => (
-        <div className="placeholder-tab-content">
-            <div className="placeholder-icon">📅</div>
-            <h2>Mis Reservas</h2>
-            <p>Acá vas a ver tus reservas activas y pasadas</p>
-            <span className="placeholder-badge">Próximamente</span>
-        </div>
+        <MessagesScreen currentUser={user} />
     );
 
     const renderTournamentsPlaceholder = () => (
-        <div className="placeholder-tab-content">
-            <div className="placeholder-icon">🏆</div>
-            <h2>Torneos</h2>
-            <p>Inscribite en torneos y competí con otros jugadores</p>
-            <span className="placeholder-badge">Próximamente</span>
-        </div>
+        <TournamentsScreen />
     );
 
     const renderHomeContent = () => (
@@ -269,6 +320,7 @@ const HomePage = () => {
                             key={club.id}
                             club={club}
                             onViewDetails={handleViewDetails}
+                            onQuickBook={handleQuickBook}
                         />
                     ))}
                 </div>
@@ -331,7 +383,30 @@ const HomePage = () => {
 
     return (
         <div className="home-page has-bottom-nav">
-            {activeTab !== 'profile' && <Header user={user} onLogout={handleLogout} />}
+            {activeTab !== 'profile' && (
+                <div className="home-header-wrapper">
+                    <Header user={user} onLogout={handleLogout} onNavigate={handleTabChange} />
+                    <div className="header-bell-container">
+                        <NotificationBell
+                            count={notifCount}
+                            onClick={() => setShowNotifications(!showNotifications)}
+                        />
+                    </div>
+                </div>
+            )}
+            {activeTab === 'profile' && (
+                <div className="profile-bell-floating">
+                    <NotificationBell
+                        count={notifCount}
+                        onClick={() => setShowNotifications(!showNotifications)}
+                    />
+                </div>
+            )}
+            <NotificationsPanel
+                isOpen={showNotifications}
+                onClose={() => setShowNotifications(false)}
+                onNavigate={handleNotificationNavigate}
+            />
             {renderTabContent()}
             <BottomNavBar activeTab={activeTab} onTabChange={handleTabChange} />
         </div>

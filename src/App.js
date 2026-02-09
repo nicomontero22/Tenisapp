@@ -6,6 +6,7 @@ import RegisterPage from './pages/auth/RegisterPage';
 import ProfileSetupPage from './pages/auth/ProfileSetupPage';
 import HomePage from './pages/player/HomePage';
 import ClubAdminDashboard from './pages/clubadmin/ClubAdminDashboard';
+import CEODashboard from './pages/ceo/CEODashboard';
 import './styles/GlobalStyles.css';
 
 // Componente interno que maneja la navegación según el rol
@@ -70,39 +71,7 @@ const AppContent = () => {
       return <ClubAdminDashboard />;
     
     case 'ceo':
-      // TODO: Crear CEODashboard
-      return (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg, #00A86B 0%, #006b47 100%)',
-          color: 'white',
-          textAlign: 'center',
-          padding: '20px'
-        }}>
-          <div>
-            <h1 style={{ fontSize: '32px', marginBottom: '20px' }}>Panel CEO</h1>
-            <p style={{ fontSize: '18px', marginBottom: '30px' }}>En desarrollo...</p>
-            <button 
-              onClick={() => window.location.reload()}
-              style={{
-                padding: '12px 24px',
-                background: '#FFD700',
-                color: '#1a1a1a',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '16px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              Volver
-            </button>
-          </div>
-        </div>
-      );
+      return <CEODashboard />;
     
     default:
       return <HomePage />;
@@ -113,11 +82,6 @@ function App() {
   return (
     <AuthProvider>
       <AppContent />
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </AuthProvider>
   );
 }

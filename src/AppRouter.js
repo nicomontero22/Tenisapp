@@ -4,13 +4,12 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ProfileSetupPage from './pages/auth/ProfileSetupPage';
 import HomePage from './pages/player/HomePage';
-import ClubDetailPage from './pages/club/ClubDetailPage';
+import ClubAdminDashboard from './pages/clubadmin/ClubAdminDashboard';
+import CEODashboard from './pages/ceo/CEODashboard';
 
 const AppRouter = () => {
     const { user, loading, needsProfileSetup } = useAuth();
     const [authView, setAuthView] = useState('login');
-    const [currentRoute, setCurrentRoute] = useState('home');
-    const [selectedClub, setSelectedClub] = useState(null);
 
     // Loading state
     if (loading) {
@@ -60,20 +59,19 @@ const AppRouter = () => {
         return <ProfileSetupPage />;
     }
 
-    // Authenticated - Handle routes
-    switch (currentRoute) {
-        case 'clubDetail':
-            return (
-                <ClubDetailPage
-                    clubId={selectedClub}
-                    onBack={() => setCurrentRoute('home')}
-                />
-            );
+    // Authenticated - Route by role
+    const role = user.role || 'usuario';
 
-        case 'home':
-        default:
-            return <HomePage />;
+    if (role === 'ceo') {
+        return <CEODashboard />;
     }
+
+    if (role === 'club_admin') {
+        return <ClubAdminDashboard />;
+    }
+
+    // Default: Player
+    return <HomePage />;
 };
 
 export default AppRouter;

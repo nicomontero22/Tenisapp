@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import BookingScreen from '../booking/BookingScreen';
 import './ClubDetailPage.css';
 
-const ClubDetailPage = ({ clubId, onBack, onNavigateToBooking }) => {
+const ClubDetailPage = ({ clubId, onBack }) => {
     const [activeTab, setActiveTab] = useState('info');
     const [selectedImage, setSelectedImage] = useState(0);
+    const [showBooking, setShowBooking] = useState(false);
+    const [bookingCourt, setBookingCourt] = useState(null);
 
     // Mock data del club (TODO: traer del API por clubId)
     const club = {
@@ -91,6 +94,7 @@ const ClubDetailPage = ({ clubId, onBack, onNavigateToBooking }) => {
                 pricePerHour: 4500,
             },
         ],
+        depositPercentage: 30,
         promocion: '20% OFF primera reserva',
     };
 
@@ -122,6 +126,30 @@ const ClubDetailPage = ({ clubId, onBack, onNavigateToBooking }) => {
         }
         return stars;
     };
+
+    const handleReserveCourt = (court) => {
+        setBookingCourt(court);
+        setShowBooking(true);
+    };
+
+    const handleReserveGeneral = () => {
+        setBookingCourt(availableCourts[0] || null);
+        setShowBooking(true);
+    };
+
+    // Si estamos en modo reserva, mostrar BookingScreen
+    if (showBooking) {
+        return (
+            <BookingScreen
+                club={club}
+                court={bookingCourt}
+                onBack={() => setShowBooking(false)}
+                onBookingComplete={(booking) => {
+                    console.log('✅ Reserva completada:', booking);
+                }}
+            />
+        );
+    }
 
     return (
         <div className="club-detail-page">
@@ -298,7 +326,7 @@ const ClubDetailPage = ({ clubId, onBack, onNavigateToBooking }) => {
                                             {court.status === 'available' && (
                                                 <button
                                                     className="btn-reserve-court"
-                                                    onClick={() => onNavigateToBooking && onNavigateToBooking(court)}
+                                                    onClick={() => handleReserveCourt(court)}
                                                 >
                                                     Reservar
                                                 </button>
@@ -356,7 +384,7 @@ const ClubDetailPage = ({ clubId, onBack, onNavigateToBooking }) => {
                 </div>
                 <button
                     className="btn-reserve-main"
-                    onClick={() => onNavigateToBooking && onNavigateToBooking(availableCourts[0])}
+                    onClick={handleReserveGeneral}
                     disabled={availableCourts.length === 0}
                 >
                     Reservar Cancha
